@@ -3,6 +3,7 @@ locals {
   throttleCount_name   = "${var.lambda_function_name} - ${var.throttleCount_threshold} over the last ${var.throttleCount_evaluationPeriods} mins"
   iteratorAge_name     = "${var.lambda_function_name} - ${var.iteratorAge_threshold}ms over the last ${var.iteratorAge_evaluationPeriods} mins"
   deadLetterQueue_name = "${var.lambda_function_name} - ${var.deadLetterQueue_threshold} over the last ${var.deadLetterQueue_evaluationPeriods} mins"
+  canary_name          = "${var.lambda_function_name} - ${var.canary_threshold} over the last ${var.canary_evaluationPeriods} mins"
 }
 
 resource "aws_cloudwatch_metric_alarm" "errorRate" {

@@ -150,7 +150,7 @@ resource "aws_cloudwatch_metric_alarm" "canary" {
   threshold           = var.canary_threshold
 
   dimensions = {
-    Resource     = "${var.lambda_function_name}:${var.function_publish_alias}"
+    Resource     = "${var.lambda_function_name}:${var.lambda_function_publish_alias}"
     FunctionName = var.lambda_function_name
   }
 

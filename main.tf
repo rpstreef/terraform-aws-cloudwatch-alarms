@@ -8,6 +8,8 @@ module "lambda" {
   region            = var.region
   resource_tag_name = var.resource_tag_name
 
+  lambda_function_name = var.lambda_function_name
+
   create_errorRate_alarm      = var.create_errorRate_alarm
   errorRate_threshold         = var.errorRate_threshold
   errorRate_evaluationPeriods = var.errorRate_evaluationPeriods
@@ -24,5 +26,7 @@ module "lambda" {
   deadLetterQueue_threshold         = var.deadLetterQueue_threshold
   deadLetterQueue_evaluationPeriods = var.deadLetterQueue_evaluationPeriods
 
-  function_name = var.lambda_function_name
+  create_canary_alarm      = var.create_canary_alarm
+  canary_threshold         = var.canary_threshold
+  canary_evaluationPeriods = var.canary_evaluationPeriods
 }

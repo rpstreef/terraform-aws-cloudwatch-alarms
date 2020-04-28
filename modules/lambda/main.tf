@@ -1,8 +1,8 @@
 locals {
-  errorRate_name       = "${var.function_name} - ${floor(var.errorRate_threshold * 100)}% over the last ${var.errorRate_evaluationPeriods} mins"
-  throttleCount_name   = "${var.function_name} - ${var.throttleCount_threshold} over the last ${var.throttleCount_evaluationPeriods} mins"
-  iteratorAge_name     = "${var.function_name} - ${var.iteratorAge_threshold}ms over the last ${var.iteratorAge_evaluationPeriods} mins"
-  deadLetterQueue_name = "${var.function_name} - ${var.deadLetterQueue_threshold} over the last ${var.deadLetterQueue_evaluationPeriods} mins"
+  errorRate_name       = "${var.lambda_function_name} - ${floor(var.errorRate_threshold * 100)}% over the last ${var.errorRate_evaluationPeriods} mins"
+  throttleCount_name   = "${var.lambda_function_name} - ${var.throttleCount_threshold} over the last ${var.throttleCount_evaluationPeriods} mins"
+  iteratorAge_name     = "${var.lambda_function_name} - ${var.iteratorAge_threshold}ms over the last ${var.iteratorAge_evaluationPeriods} mins"
+  deadLetterQueue_name = "${var.lambda_function_name} - ${var.deadLetterQueue_threshold} over the last ${var.deadLetterQueue_evaluationPeriods} mins"
 }
 
 resource "aws_cloudwatch_metric_alarm" "errorRate" {
@@ -34,7 +34,7 @@ resource "aws_cloudwatch_metric_alarm" "errorRate" {
       unit        = "Count"
 
       dimensions = {
-        FunctionName = var.function_name
+        FunctionName = var.lambda_function_name
       }
     }
 
@@ -53,7 +53,7 @@ resource "aws_cloudwatch_metric_alarm" "errorRate" {
       unit        = "Count"
 
       dimensions = {
-        FunctionName = var.function_name
+        FunctionName = var.lambda_function_name
       }
     }
 
@@ -80,7 +80,7 @@ resource "aws_cloudwatch_metric_alarm" "throttleCount" {
   threshold           = var.throttleCount_threshold
 
   dimensions = {
-    FunctionName = var.function_name
+    FunctionName = var.lambda_function_name
   }
 
   tags = {
@@ -103,7 +103,7 @@ resource "aws_cloudwatch_metric_alarm" "iteratorAge" {
   threshold           = var.iteratorAge_threshold
 
   dimensions = {
-    FunctionName = var.function_name
+    FunctionName = var.lambda_function_name
   }
 
   tags = {
@@ -126,7 +126,31 @@ resource "aws_cloudwatch_metric_alarm" "deadLetterQueue" {
   threshold           = var.deadLetterQueue_threshold
 
   dimensions = {
-    FunctionName = var.function_name
+    FunctionName = var.lambda_function_name
+  }
+
+  tags = {
+    Name        = var.resource_tag_name
+    Environment = var.namespace
+  }
+}
+
+resource "aws_cloudwatch_metric_alarm" "canary" {
+  count = var.create_canary_alarm ? 1 : 0
+
+  alarm_name          = local.canary_name
+  alarm_description   = local.canary_name
+  comparison_operator = "GreaterThanThreshold"
+  evaluation_periods  = var.canary_evaluationPeriods
+  metric_name         = "Errors"
+  namespace           = "AWS/Lambda"
+  period              = "60"
+  statistic           = "Sum"
+  threshold           = var.canary_threshold
+
+  dimensions = {
+    Resource     = "${var.lambda_function_name}:${var.function_publish_alias}"
+    FunctionName = var.lambda_function_name
   }
 
   tags = {

@@ -16,11 +16,11 @@ variable "resource_tag_name" {
 }
 
 # -----------------------------------------------------------------------------
-# Variables: Lambda required
+# Variables: Lambda functions, required
 # -----------------------------------------------------------------------------
 
 variable "lambda_function_name" {
-  description = "Name of the Lambda function, this will also determine it's handler path"
+  description = "Lambda function name"
 }
 
 # -----------------------------------------------------------------------------
@@ -101,4 +101,24 @@ variable "deadLetterQueue_threshold" {
 variable "deadLetterQueue_evaluationPeriods" {
   description = "The number of periods over which data is compared to the specified threshold"
   default     = 1
+}
+
+# -----------------------------------------------------------------------------
+# Variables: Lambda Cloudwatch Alarms canary
+# -----------------------------------------------------------------------------
+
+variable "create_canary_alarm" {
+  description = "Creates the resource (true) or not (false)"
+  type        = bool
+  default     = true
+}
+
+variable "canary_threshold" {
+  description = "The value against which the specified statistic is compared"
+  default     = 0
+}
+
+variable "canary_evaluationPeriods" {
+  description = "The number of periods over which data is compared to the specified threshold"
+  default     = 2
 }

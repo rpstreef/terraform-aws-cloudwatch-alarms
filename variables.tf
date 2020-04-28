@@ -23,6 +23,12 @@ variable "lambda_function_name" {
   description = "Lambda function name"
 }
 
+variable "lambda_function_publish_alias" {
+  description = "Lambda function publish alias, usually points to the current live (new) version"
+  type        = string
+  default     = "live"
+}
+
 # -----------------------------------------------------------------------------
 # Variables:Lambda Cloudwatch Alarms errorRate
 # -----------------------------------------------------------------------------

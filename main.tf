@@ -8,7 +8,8 @@ module "lambda" {
   region            = var.region
   resource_tag_name = var.resource_tag_name
 
-  lambda_function_name = var.lambda_function_name
+  lambda_function_name          = var.lambda_function_name
+  lambda_function_publish_alias = var.lambda_function_publish_alias
 
   create_errorRate_alarm      = var.create_errorRate_alarm
   errorRate_threshold         = var.errorRate_threshold

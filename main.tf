@@ -47,7 +47,6 @@ module "apigateway" {
 
   resources = var.resources
 
-  create_latency_alarm      = var.create_latency_alarm
   latency_threshold_p95     = var.latency_threshold_p95
   latency_threshold_p99     = var.latency_threshold_p99
   latency_evaluationPeriods = var.latency_evaluationPeriods

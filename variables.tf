@@ -163,12 +163,6 @@ variable "latency_threshold_p99" {
   default     = 1000
 }
 
-variable "create_latency_alarm" {
-  description = "Enable/disable latency alerts"
-  type        = bool
-  default     = true
-}
-
 variable "latency_evaluationPeriods" {
   description = "The number of periods over which data is compared to the specified threshold"
   default     = 5

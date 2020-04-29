@@ -150,7 +150,7 @@ variable "api_stage" {
 variable "resources" {
   description = "Methods that have Cloudwatch alarms enabled"
   type        = map
-  default     = null
+  default     = {}
 }
 
 variable "latency_threshold_p95" {

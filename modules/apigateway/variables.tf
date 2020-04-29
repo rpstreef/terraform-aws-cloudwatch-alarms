@@ -17,7 +17,6 @@ variable "resource_tag_name" {
 # Variables: API Gateway
 # -----------------------------------------------------------------------------
 
-
 variable "api_name" {
   description = "API Gateway Name"
   type        = string

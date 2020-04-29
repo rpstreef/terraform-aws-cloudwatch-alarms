@@ -31,3 +31,31 @@ module "lambda" {
   canary_threshold         = var.canary_threshold
   canary_evaluationPeriods = var.canary_evaluationPeriods
 }
+
+# -----------------------------------------------------------------------------
+# CloudWatch: API Gateway 
+# -----------------------------------------------------------------------------
+module "apigateway" {
+  source = "./modules/apigateway"
+
+  namespace         = var.namespace
+  region            = var.region
+  resource_tag_name = var.resource_tag_name
+
+  api_name  = var.api_name
+  api_stage = var.api_stage
+
+  resources = var.resources
+
+  create_latency_alarm      = var.create_latency_alarm
+  latency_threshold_p95     = var.latency_threshold_p95
+  latency_threshold_p99     = var.latency_threshold_p99
+  latency_evaluationPeriods = var.latency_evaluationPeriods
+
+  fourRate_threshold         = var.fourRate_threshold
+  fourRate_evaluationPeriods = var.fourRate_evaluationPeriods
+
+  fiveRate_threshold         = var.fiveRate_threshold
+  fiveRate_evaluationPeriods = var.fiveRate_evaluationPeriods
+
+}

@@ -21,6 +21,8 @@ variable "resource_tag_name" {
 
 variable "lambda_function_name" {
   description = "Lambda function name"
+  type        = string
+  default     = null
 }
 
 variable "lambda_function_publish_alias" {
@@ -127,4 +129,71 @@ variable "canary_threshold" {
 variable "canary_evaluationPeriods" {
   description = "The number of periods over which data is compared to the specified threshold"
   default     = 2
+}
+
+# -----------------------------------------------------------------------------
+# Variables: API Gateway
+# -----------------------------------------------------------------------------
+
+variable "api_name" {
+  description = "API Gateway Name"
+  type        = string
+  default     = null
+}
+
+variable "api_stage" {
+  description = "API Gateway stage"
+  type        = string
+  default     = null
+}
+
+variable "resources" {
+  description = "Methods that have Cloudwatch alarms enabled"
+  type        = map
+  default     = null
+}
+
+variable "latency_threshold_p95" {
+  description = "The value against which the specified statistic is compared"
+  default     = 1000
+}
+
+variable "latency_threshold_p99" {
+  description = "The value against which the specified statistic is compared"
+  default     = 1000
+}
+
+variable "create_latency_alarm" {
+  description = "Enable/disable latency alerts"
+  type        = bool
+  default     = true
+}
+
+variable "latency_evaluationPeriods" {
+  description = "The number of periods over which data is compared to the specified threshold"
+  default     = 5
+}
+
+variable "fourRate_threshold" {
+  description = "Percentage of errors that will trigger an alert"
+  default     = 0.02
+  type        = number
+}
+
+variable "fourRate_evaluationPeriods" {
+  description = "How many periods are evaluated before the alarm is triggered"
+  default     = 5
+  type        = number
+}
+
+variable "fiveRate_threshold" {
+  description = "Percentage of errors that will trigger an alert"
+  default     = 0.02
+  type        = number
+}
+
+variable "fiveRate_evaluationPeriods" {
+  description = "How many periods are evaluated before the alarm is triggered"
+  default     = 5
+  type        = number
 }

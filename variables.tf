@@ -22,7 +22,7 @@ variable "resource_tag_name" {
 variable "lambda_function_name" {
   description = "Lambda function name"
   type        = string
-  default     = null
+  default     = "empty"
 }
 
 variable "lambda_function_publish_alias" {
